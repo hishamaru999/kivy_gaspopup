@@ -1,3 +1,4 @@
+import datetime
 import kivy
 from kivy.app import App
 from kivy.uix.label import Label
@@ -5,6 +6,11 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 kivy.require("1.10.1")
 
+# Format current timestamp
+date = datetime.datetime.today()
+now = date.today()
+format = "%a, %b %d %H:%M:%S"
+timeStamp = now.strftime(format)
 
 # super() initiates the parent class method as well
 class ConnectPage(GridLayout):
@@ -28,7 +34,7 @@ class ConnectPage(GridLayout):
         self.slowGas = TextInput(multiline=False)
         self.add_widget(self.slowGas)
 
-        self.add_widget(Label(text="Timestampe:"))
+        self.add_widget(Label(text=timeStamp))
         self.tStamp = TextInput(multiline=False)
         self.add_widget(self.tStamp)
 
