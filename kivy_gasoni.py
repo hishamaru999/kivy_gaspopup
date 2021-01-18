@@ -1,10 +1,23 @@
 import datetime
+import requests
 import kivy
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 kivy.require("1.10.1")
+import defipulse_credentials
+
+
+# Function to get ETH Gas Station data via the defipulse api
+request_data = requests.get(f'https://ethgasstation.info/api/ethgasAPI.json?api-key={defipulse_credentials.defipulseApikey}')
+data = request_data.json()
+
+# Create variables in gwei from api data (json)
+fast_gwei = data['fast'] / 10
+average_gwei = data['average'] / 10
+slow_gwei = data['safeLow'] / 10
+trader_gwei = data['fastest'] / 10
 
 
 # Format current timestamp
@@ -21,25 +34,19 @@ class GasPage(GridLayout):
         self.cols = 2
 
         self.add_widget(Label(text="Trader Gas:"))
-        self.traderGas = TextInput(multiline=False)
-        self.add_widget(self.traderGas)
+        self.add_widget(Label(text=str(trader_gwei)))
 
         self.add_widget(Label(text="Fast Gas:"))
-        self.fastGas = TextInput(multiline=False)
-        self.add_widget(self.fastGas)
+        self.add_widget(Label(text=str(fast_gwei)))
 
         self.add_widget(Label(text="Average Gas:"))
-        self.avgGas = TextInput(multiline=False)
-        self.add_widget(self.avgGas)
+        self.add_widget(Label(text=str(average_gwei)))
 
         self.add_widget(Label(text="Slow Gas:"))
-        self.slowGas = TextInput(multiline=False)
-        self.add_widget(self.slowGas)
+        self.add_widget(Label(text=str(slow_gwei)))
 
+        self.add_widget(Label(text="Timestamp"))
         self.add_widget(Label(text=timeStamp))
-        self.tStamp = TextInput(multiline=False)
-        self.add_widget(self.tStamp)
-
 
 
 
