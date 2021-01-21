@@ -1,17 +1,20 @@
 import datetime
+import time
 import requests
 import kivy
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.textinput import TextInput
+from kivy.clock import Clock
 kivy.require("1.10.1")
 import defipulse_credentials
 
 
+# ToDO: put this in a TRY block
 # Function to get ETH Gas Station data via the defipulse api
 request_data = requests.get(f'https://ethgasstation.info/api/ethgasAPI.json?api-key={defipulse_credentials.defipulseApikey}')
 data = request_data.json()
+
 
 # Create variables in gwei from api data (json)
 fast_gwei = data['fast'] / 10
@@ -55,5 +58,12 @@ class GasApp(App):
         return GasPage()
 
 
+# Call GasApp every 3 mins
+Clock.schedule_interval(GasApp, 300)
+
+
 if __name__ == "__main__":
     GasApp().run()
+
+
+# ToDo: increaes font size and add color indicator based on gas >= targetGas
