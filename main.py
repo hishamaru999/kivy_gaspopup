@@ -1,8 +1,13 @@
 from kivy.app import App
 from kivy.clock import Clock
+from kivy.core.window import Window
+from kivy.uix.image import Image
 import datetime
 import requests
 import defipulse_credentials
+
+# Set window background color in RGB and Opacity
+Window.clearcolor = (74/255.0, 102/255.0, 240/255.0, 1)
 
 
 class MainApp(App):
@@ -39,6 +44,7 @@ class MainApp(App):
         self.root.ids.fastgweiLabel.text = str(fast_gwei)
         self.root.ids.avgweiLabel.text = str(average_gwei)
         self.root.ids.slowgweiLabel.text = str(slow_gwei)
+
 
     def update_ethspot(self, *args):
         request_price = requests.get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
