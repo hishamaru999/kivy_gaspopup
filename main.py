@@ -7,14 +7,13 @@ import defipulse_credentials
 
 class MainApp(App):
     def on_start(self):
-        Clock.schedule_interval(self.update_label, 1)
+        Clock.schedule_interval(self.update_counter, 1)
         Clock.schedule_interval(self.update_time, 60)
         Clock.schedule_interval(self.update_gas, 60)
         Clock.schedule_interval(self.update_ethspot, 60)
 
 
-    def update_label(self, *args):
-        # Update my label
+    def update_counter(self, *args):
         self.root.ids.counter.text = str(int(self.root.ids.counter.text) + 1)
 
 
