@@ -8,6 +8,7 @@ import defipulse_credentials
 
 # Set window background color in RGB and Opacity
 Window.clearcolor = (74/255.0, 102/255.0, 240/255.0, 1)
+Window.size = (360, 600)
 
 
 class MainApp(App):
