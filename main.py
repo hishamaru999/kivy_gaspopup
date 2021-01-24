@@ -10,6 +10,7 @@ class MainApp(App):
         Clock.schedule_interval(self.update_label, 1)
         Clock.schedule_interval(self.update_time, 60)
         Clock.schedule_interval(self.update_gas, 60)
+        Clock.schedule_interval(self.update_ethspot, 60)
 
 
     def update_label(self, *args):
@@ -24,6 +25,7 @@ class MainApp(App):
         timeStamp = now.strftime(format)
         self.root.ids.timeLabel.text = str(timeStamp)
 
+
     def update_gas(self, *args):
         request_data = requests.get(f'https://ethgasstation.info/api/ethgasAPI.json?api-key={defipulse_credentials.defipulseApikey}')
         data = request_data.json()
@@ -33,10 +35,19 @@ class MainApp(App):
         average_gwei = data['average'] / 10
         slow_gwei = data['safeLow'] / 10
         trader_gwei = data['fastest'] / 10
+
         self.root.ids.tradergweiLabel.text = str(trader_gwei)
         self.root.ids.fastgweiLabel.text = str(fast_gwei)
         self.root.ids.avgweiLabel.text = str(average_gwei)
         self.root.ids.slowgweiLabel.text = str(slow_gwei)
+
+    def update_ethspot(self, *args):
+        request_price = requests.get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
+        price = request_price.json()['ethereum']['usd']
+
+        eth_spot = "$" + str(price)
+
+        self.root.ids.ethspotLabel.text = eth_spot
 
 
 
