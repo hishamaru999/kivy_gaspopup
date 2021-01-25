@@ -10,7 +10,7 @@ Window.size = (360, 600)
 
 class TestApp(App):
     def build(self):
-        layout = BoxLayout(orientation='vertical', spacing=10, padding=40)
+        layout = BoxLayout(orientation='vertical', spacing=10, padding=80)
         btn = Button(text='Gas!', size_hint=(None, None), width=100, height=50, pos_hint={'center_x': 0.5})
         img = Image(source='ethgas.ico')
         layout.add_widget(img)
